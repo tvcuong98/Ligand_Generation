@@ -86,8 +86,8 @@ args = parser.parse_args()
 
 num_mols = args.num_mols
 
-root_dir = "/home/khangnn4/reinforced-genetic-algorithm/pdb"
-protein_files = os.listdir("/home/khangnn4/reinforced-genetic-algorithm/pdb")
+root_dir = "./pdb"
+protein_files = os.listdir("./pdb")
 protein_pdbs = list(filter(lambda x: ".pdb" in x and ".pdbqt" not in x, protein_files))
 receptor_files = list(filter(lambda x: "pdbqt" in x, protein_files))
 
