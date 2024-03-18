@@ -67,6 +67,7 @@ def featurize_as_graph(protein, num_rbf = 16, device = "cuda"):
     C_coords = protein[protein.name == 'C'][['x', 'y', 'z']].to_numpy()
     O_coords = protein[protein.name == 'O'][['x', 'y', 'z']].to_numpy()
     max_ = min([CA_coords.shape[0], C_coords.shape[0], N_coords.shape[0], O_coords.shape[0]])
+    #max_ = CA_coords.shape[0]
     N_coords = N_coords[:max_, :]
     CA_coords = CA_coords[:max_, :]
     C_coords = C_coords[:max_, :]
@@ -77,6 +78,8 @@ def featurize_as_graph(protein, num_rbf = 16, device = "cuda"):
         coords = torch.from_numpy(coords).float().to(device)
         seq = torch.as_tensor([_amino_acids(a) for a in protein[protein.name == 'CA']['resname'][:max_]],
                                 dtype=torch.long).to(device)
+        # print([a for a in protein[protein.name == "CA"]['resname'][:max_] if _amino_acids(a) == 20])
+        # exit(0)
         #print(coords.shape)
         mask = torch.isfinite(coords.sum(dim=(1,2)))
         coords[~mask] = np.inf

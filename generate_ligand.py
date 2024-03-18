@@ -72,11 +72,13 @@ test_dataset = TargetDataset(
     idx_to_symbol=idx_to_symbol, max_len=72, protein_set=test_protein, test = True
 )
 
-vae = ThreeD_Conditional_VAE(max_len=72, vocab_len=108, 
-          latent_dim=1024, embedding_dim=128, condition_dim = 128, checkpoint_path = None, freeze = False).cuda()
-vae.load_state_dict(torch.load('checkpoints/conditional_vae.pt'))
-vae.eval()
+vae = ThreeD_Conditional_VAE(
+    latent_dim = 128
+)
 
+vae.load_state_dict(torch.load(f"checkpoint/target_aware.pt"))
+vae = vae.to(args.device)
+vae.eval()
 
 batch_mol = 1000 if args.num_mols >= 1000 else args.num_mols
 cnt = 0
