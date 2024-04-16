@@ -2,7 +2,10 @@
 
 ![PMN](PMN.png)
 
-Paper:
+Published at Machine Learning: Science and Technology (Q1 journal, 6.8 impact factor):
+https://doi.org/10.1088/2632-2153/ad3ee4
+
+Preprint:
 https://doi.org/10.1101/2023.08.10.552868
 
 Contributors:
