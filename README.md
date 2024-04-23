@@ -11,6 +11,19 @@ https://doi.org/10.1101/2023.08.10.552868
 Contributors:
 * Nhat Khang Ngo
 * Truong Son Hy (Correspondent / PI)
+
+### Please cite our paper with the following bibtex!
+
+```bibtex
+@article{10.1088/2632-2153/ad3ee4,
+	author={Ngo, Nhat Khang and Hy, Truong Son},
+	title={Multimodal Protein Representation Learning and Target-aware Variational Auto-encoders for Protein-binding Ligand Generation},
+	journal={Machine Learning: Science and Technology},
+	url={http://iopscience.iop.org/article/10.1088/2632-2153/ad3ee4},
+	year={2024},
+	abstract={Without knowledge of specific pockets, generating ligands based on the global structure of a protein target plays a crucial role in drug discovery as it helps reduce the search space for potential drug-like candidates in the pipeline. However, contemporary methods require optimizing tailored networks for each protein, which is arduous and costly. To address this issue, we introduce TargetVAE, a target-aware variational auto-encoder that generates ligands with desirable properties including high binding affinity and high synthesizability to arbitrary target proteins, guided by a multimodal deep neural network built based on geometric and sequence models, named Protein Multimodal Network (PMN), as the prior for the generative model. PMN unifies different representations of proteins (e.g., primary structure - sequence of amino acids, 3D tertiary structure, and residue-level graph) into a single representation. Our multimodal architecture learns from the entire protein structure and is able to capture their sequential, topological, and geometrical information by utilizing language modeling, graph neural networks, and geometric deep learning. We showcase the superiority of our approach by conducting extensive experiments and evaluations, including predicting protein-ligand binding affinity in the PBDBind v2020 dataset as well as the assessment of generative model quality, ligand generation for unseen targets, and docking score computation. Empirical results demonstrate the promising and competitive performance of our proposed approach. Our software package is publicly available at https://github.com/HySonLab/Ligand_Generation}
+}
+```
   
 ### Data Preprocessing
 Three-dimensional structures of proteins are stored in two compressed files, prot_3d_for_Davis.tar.gz, and prot_3d_for_kiba.tar.gz.
@@ -59,18 +72,6 @@ python3 generate_specific_target.py --protein_name [target name]
 with the PDB file has the format as {target_name}.pdb.
 
 ![Ligands](multiple_ligand.png)
-
-### Please cite our paper with the following bibtex!
-```bibtex
-@article{10.1088/2632-2153/ad3ee4,
-	author={Ngo, Nhat Khang and Hy, Truong Son},
-	title={Multimodal Protein Representation Learning and Target-aware Variational Auto-encoders for Protein-binding Ligand Generation},
-	journal={Machine Learning: Science and Technology},
-	url={http://iopscience.iop.org/article/10.1088/2632-2153/ad3ee4},
-	year={2024},
-	abstract={Without knowledge of specific pockets, generating ligands based on the global structure of a protein target plays a crucial role in drug discovery as it helps reduce the search space for potential drug-like candidates in the pipeline. However, contemporary methods require optimizing tailored networks for each protein, which is arduous and costly. To address this issue, we introduce TargetVAE, a target-aware variational auto-encoder that generates ligands with desirable properties including high binding affinity and high synthesizability to arbitrary target proteins, guided by a multimodal deep neural network built based on geometric and sequence models, named Protein Multimodal Network (PMN), as the prior for the generative model. PMN unifies different representations of proteins (e.g., primary structure - sequence of amino acids, 3D tertiary structure, and residue-level graph) into a single representation. Our multimodal architecture learns from the entire protein structure and is able to capture their sequential, topological, and geometrical information by utilizing language modeling, graph neural networks, and geometric deep learning. We showcase the superiority of our approach by conducting extensive experiments and evaluations, including predicting protein-ligand binding affinity in the PBDBind v2020 dataset as well as the assessment of generative model quality, ligand generation for unseen targets, and docking score computation. Empirical results demonstrate the promising and competitive performance of our proposed approach. Our software package is publicly available at https://github.com/HySonLab/Ligand_Generation}
-}
-```
 
 ### References
 ```bibtex
