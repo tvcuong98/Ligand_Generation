@@ -1,2 +1,9 @@
-
+*.gz
 .DS_Store
+*.pdb
+*.pt
+*prot_3d_for_Davis/
+*prot_3d_for_KIBA/
+*__pycache__/
+*.zip
+*PDBBind_processed/
