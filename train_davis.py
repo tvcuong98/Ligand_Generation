@@ -27,7 +27,7 @@ args  = parser.parse_args()
 
 
 #log_dir
-if not os.path.exists("log_dir_davis"):os.mkdir("log_dir_davis")
+if not os.path.exists("log_dir"):os.mkdir("log_dir")
 
 # set seed 
 np.random.seed(args.seed)
