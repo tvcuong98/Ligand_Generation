@@ -27,6 +27,6 @@ for folder in tqdm(folders):
     path = os.path.join(root, folder)
     protein_df = fo.bp_to_df(fo.read_pdb(path))
     protein_graph = featurize_as_graph(protein_df)
-    save_path = os.path.join(root,"res_graph")
+    save_path = os.path.join(os.path.dirname(root), "res_graph")
     if not os.path.exists(save_path): os.mkdir(save_path)
-    torch.save(protein_graph, os.path.join(root, "res_graph", f"{folder}.pt"))
+    torch.save(protein_graph, os.path.join(save_path, f"{folder}.pt"))
