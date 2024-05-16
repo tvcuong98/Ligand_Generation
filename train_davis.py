@@ -26,6 +26,9 @@ parser.add_argument("--batch_size", type = int, default = 32)
 args  = parser.parse_args()
 
 
+#log_dir
+if not os.path.exists("log_dir_davis"):os.mkdir("log_dir_davis")
+
 # set seed 
 np.random.seed(args.seed)
 torch.manual_seed(args.seed)

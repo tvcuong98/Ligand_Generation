@@ -24,7 +24,8 @@ parser.add_argument("--hidden_dim", type = int, default = 256)
 parser.add_argument("--data_root", type = str, default = "./data/kiba")
 parser.add_argument("--fold_idx", type = int, default = 0)
 args  = parser.parse_args()
-
+#log_dir
+if not os.path.exists("log_dir_kiba"):os.mkdir("log_dir_kiba")
 
 # set seed 
 np.random.seed(args.seed)
