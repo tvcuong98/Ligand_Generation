@@ -15,13 +15,13 @@ from utils.train_test import train_one_epoch_davis_and_kiba, eval_one_epoch_davi
 from utils.metrics import evaluate_reg
 import datetime
 import json
-
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 parser = argparse.ArgumentParser()
 parser.add_argument("--seed", type = int, default = 12345)
 parser.add_argument("--num_epoch", type = int, default = 200)
 parser.add_argument("--lr", type = float, default = 5e-3)
 parser.add_argument("--hidden_dim", type = int, default = 256)
-parser.add_argument("--data_root", type = str, default = "./data/kiba")
+parser.add_argument("--data_root", type = str, default = "data/kiba")
 parser.add_argument("--fold_idx", type = int, default = 0)
 args  = parser.parse_args()
 #log_dir
@@ -38,7 +38,7 @@ os.environ['PYTHONHASHSEED'] = str(args.seed)
 exp_name = f"kiba_{args.fold_idx}"
 result_dict = {}
 result_dict.update(vars(args))
-device = "cuda"
+device = "cuda:3"
 model = BindingAffinityPredictor(hidden_dim = args.hidden_dim).to(device)
 loss_fn = nn.MSELoss()
 evaluator = evaluate_reg
@@ -46,11 +46,13 @@ optimizer = torch.optim.Adam(model.parameters(), lr = args.lr, betas = (0.9, 0.9
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor = 0.5)
 
 ########
-csv_file = os.path.join(args.data_root, "full.csv")
+current_file_directory = os.path.dirname(os.path.abspath(__file__))
+absolute_data_root = os.path.join(current_file_directory,args.data_root)
+csv_file = os.path.join(absolute_data_root, "full.csv")
 df = pd.read_csv(csv_file)
 
-test_fold = json.load(open(f"{args.data_root}/folds/test_fold_setting1.txt"))
-folds = json.load(open(f"{args.data_root}/folds/train_fold_setting1.txt"))
+test_fold = json.load(open(f"{absolute_data_root}/folds/test_fold_setting1.txt"))
+folds = json.load(open(f"{absolute_data_root}/folds/train_fold_setting1.txt"))
 
 val_fold = folds[args.fold_idx]
 df_train = df[~ df.index.isin(test_fold)]
@@ -58,9 +60,9 @@ df_val = df_train[df_train.index.isin(val_fold)]
 df_train = df_train[~ df_train.index.isin(val_fold)]
 df_test = df[df.index.isin(test_fold)]
 
-train_dataset = DavisDataset(args.data_root, df_train)
-valid_dataset = DavisDataset(args.data_root, df_val)
-test_dataset = DavisDataset(args.data_root, df_test)
+train_dataset = DavisDataset(absolute_data_root, df_train)
+valid_dataset = DavisDataset(absolute_data_root, df_val)
+test_dataset = DavisDataset(absolute_data_root, df_test)
 
 
 #######
@@ -92,7 +94,7 @@ for epoch in range(args.num_epoch):
                     result_dict[f"valid_{key}"] = valid_score[key]
                     result_dict[f"test_{key}"] = test_score[key]
                 json_object = json.dumps(result_dict, indent = 4)
-                with open(f"log_dir/{exp_name}.json", "w") as f:
+                with open(f"{absolute_data_root}/log_dir/{exp_name}.json", "w") as f:
                     f.write(json_object)
         else:
             print(f"\n{key} | Validation: {valid_score[key]} | Test: {test_score[key]}") 

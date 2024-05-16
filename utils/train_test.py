@@ -113,7 +113,7 @@ def eval_one_epoch_davis_and_kiba(model, loader, device, evaluator, loss_fn = No
         pred = model(protein_graph, seq_emb, ligand_graph, ligand_mp).view(-1)
         if loss_fn is not None:
             batch_size = len(label)
-            label = torch.tensor(label).cuda()
+            label = torch.tensor(label).to(device)
             loss = loss_fn(pred, label.view(-1))
             meter.update(loss.detach().cpu().item(), batch_size)
         P += list(pred.cpu().numpy())
